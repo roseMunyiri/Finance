@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Symbol</th>
+                 <th scope="col">Name</th>
+                <th scope="col">Shares</th>
+                <th scope="col">Price</th>
+                <th scope="col">TOTAL</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            {% for stock in user_stocks %}
+                <tr>
+                    <td>{{ stock["symbol"] }}</td>
+                    <td>{{ stock["name"] }}</td>
+                    <td>{{ stock["totalShares"] }}</td>
+                    <td>{{ stock["price"] | usd }}</td>
+                    <td>{{ (stock["totalShares"] * stock["price"]) | usd }}</td>
+
+                </tr>
+            {% endfor %}
+            <tr>
+                <td><strong>CASH </strong></td>
+                <td colspan = "3"></td>
+                <td><strong>{{cash | usd}} </strong></td>
+            </tr>
+            <tfoot>
+                    <td colspan = "4"></td>
+                    <td><strong>{{ (total) | round | usd }}</strong></td>
+            </tfoot>
+        </tbody>
+    </table>
+{% endblock %}
